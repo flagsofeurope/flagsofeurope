@@ -135,18 +135,45 @@
       answerInput.value = "";
       resultElement.textContent = "";
 
-      const choices = ["A", "B", "C", "D"]; // Add more choices if needed
+      const choices = generateChoices(currentQuiz.answer); // Generate random choices
 
       choicesElement.innerHTML = "";
-      choices.forEach((choice) => {
+      choices.forEach((choice, index) => {
         const li = document.createElement("li");
-        li.textContent = `${choice}. ${currentQuiz.answer}`;
+        li.textContent = `${String.fromCharCode(65 + index)}. ${choice}`;
         choicesElement.appendChild(li);
       });
     }
 
+    function generateChoices(correctAnswer) {
+      const choices = [correctAnswer];
+
+      while (choices.length < 4) {
+        const randomIndex = Math.floor(Math.random() * quizData.length);
+        const randomCountry = quizData[randomIndex].answer;
+
+        if (!choices.includes(randomCountry)) {
+          choices.push(randomCountry);
+        }
+      }
+
+      return shuffleArray(choices);
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
     function checkAnswer() {
       const userAnswer = answerInput.value.trim();
+      if (!userAnswer) {
+        return; // Exit the function if the answer is empty
+      }
+
       const currentQuiz = quizData[currentQuestion];
 
       if (userAnswer.toLowerCase() === currentQuiz.answer.toLowerCase()) {
