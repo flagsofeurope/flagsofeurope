@@ -94,22 +94,19 @@
         options: ["France", "Germany", "Italy", "Spain"],
         answer: 0
       },
+      {
+        question: "Identify the country of this flag",
+        flagUrl: "flag_images/flag2.png",
+        options: ["Sweden", "Norway", "Denmark", "Finland"],
+        answer: 1
+      },
+      {
+        question: "Which country's flag is this?",
+        flagUrl: "flag_images/flag3.png",
+        options: ["Greece", "Turkey", "Egypt", "Cyprus"],
+        answer: 3
+      },
       // Add more quiz questions and their details here
     ];
 
-    const questionElement = document.getElementById("question");
-    const flagImageElement = document.getElementById("flag-image");
-    const choicesElement = document.getElementById("choices");
-    const submitButton = document.getElementById("submit-btn");
-    const resultElement = document.getElementById("result");
-
-    let currentQuestion = 0;
-    let score = 0;
-
-    function loadQuiz() {
-      const currentQuiz = quizData[currentQuestion];
-      questionElement.innerText = currentQuiz.question;
-      flagImageElement.src = currentQuiz.flagUrl;
-
-      choicesElement.innerHTML = "";
-      currentQuiz
+    const questionElement = document.getElementById
