@@ -108,3 +108,64 @@
         question: "Identify the country of this flag",
         flagUrl: "flag_images/flag2.png",
         answer: "Norway"
+      },
+      {
+        question: "Which country's flag is this?",
+        flagUrl: "flag_images/flag3.png",
+        answer: "Greece"
+      }
+      // Add more quiz questions and their details here
+    ];
+
+    const quizContainer = document.getElementById("quiz-container");
+    const questionElement = document.getElementById("question");
+    const flagImageElement = document.getElementById("flag-image");
+    const choicesElement = document.getElementById("choices");
+    const answerInput = document.getElementById("answer-input");
+    const submitBtn = document.getElementById("submit-btn");
+    const resultElement = document.getElementById("result");
+
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+      const currentQuiz = quizData[currentQuestion];
+      questionElement.textContent = currentQuiz.question;
+      flagImageElement.src = currentQuiz.flagUrl;
+      flagImageElement.alt = "Flag";
+      answerInput.value = "";
+      resultElement.textContent = "";
+
+      const choices = ["A", "B", "C", "D"]; // Add more choices if needed
+
+      choicesElement.innerHTML = "";
+      choices.forEach((choice) => {
+        const li = document.createElement("li");
+        li.textContent = `${choice}. ${currentQuiz.answer}`;
+        choicesElement.appendChild(li);
+      });
+    }
+
+    function checkAnswer() {
+      const userAnswer = answerInput.value.trim();
+      const currentQuiz = quizData[currentQuestion];
+
+      if (userAnswer.toLowerCase() === currentQuiz.answer.toLowerCase()) {
+        resultElement.textContent = "Good job! Your answer is correct.";
+      } else {
+        resultElement.textContent = "Wrong answer. The correct answer is: " + currentQuiz.answer;
+      }
+
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        quizContainer.innerHTML = "<p>You have completed the quiz!</p>";
+      }
+    }
+
+    submitBtn.addEventListener("click", checkAnswer);
+
+    loadQuestion();
+  </script>
+</body>
+</html>
